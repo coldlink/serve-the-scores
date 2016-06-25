@@ -1,0 +1,22 @@
+{
+  "name": "serve-the-scores",
+  "description": "html/js scoreboard app for xsplit (and others) made using electron",
+  "authors": [
+    "Mahesh Makani"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "scoreboard/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "animate.css": "^3.5.2"
+  }
+}

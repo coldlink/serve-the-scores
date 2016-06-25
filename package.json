@@ -1,0 +1,19 @@
+{
+  "name": "serve-the-scores",
+  "version": "0.0.1",
+  "description": "html/js scoreboard app for xsplit (and others) made using electron",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron-packager": "^7.0.4",
+    "electron-prebuilt": "^1.2.3"
+  },
+  "author": "Mahesh Makani",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
