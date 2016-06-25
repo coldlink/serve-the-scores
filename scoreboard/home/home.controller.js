@@ -4,9 +4,7 @@
   angular.module('StSApp')
     .controller('HomeCtrl', HomeCtrl);
 
-  function HomeCtrl() {
+  function HomeCtrl($state) {
     let vm = this;
-
-    vm.message = 'NOT YET IMPLEMENTED';
   }
 })();
