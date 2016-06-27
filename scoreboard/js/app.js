@@ -8,8 +8,5 @@
 	function config($urlRouterProvider, $locationProvider) {
 		$urlRouterProvider
 			.otherwise('/');
-
-		//no hashbangs
-		$locationProvider.html5Mode(true);
 	}
 })();
