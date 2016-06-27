@@ -1,0 +1,32 @@
+/*Load Font*/
+
+@import url(https://fonts.googleapis.com/css?family=VT323);
+
+/*Global styles for all boards, overwrite with local board specific styles if necessary*/
+body {
+    /*Set background colour to be transparent, required to see through board in xsplit*/
+    background-color: rgba(0, 0, 0, 0.0);
+
+    /*Set board width and height, change as required, usually to same resolution as broadcasts*/
+    width: 1280px;
+    height: 720px;
+
+    /*Use absolute positioning for everything - pixel perfect*/
+    position: absolute;
+    /*Set Position*/
+    top: 0px;
+    left: 0px;
+
+    /*Global font*/
+    font-family: 'VT323';
+
+    /*Hide scrollbars*/
+    overflow: hidden;
+
+    /*no margin*/
+    margin: 0;
+}
+
+.white {
+  color: white;
+}

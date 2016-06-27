@@ -1,12 +1,15 @@
 //initialise the application
-(function () {
-  'use strict';
+(function() {
+	'use strict';
 
-  angular.module('StSApp', ['ui.router'])
-    .config(config);
+	angular.module('StSApp', ['ui.router', 'uiRouterStyles'])
+		.config(config);
 
-  function config($urlRouterProvider) {
-    $urlRouterProvider
-      .otherwise('/');
-  }
+	function config($urlRouterProvider, $locationProvider) {
+		$urlRouterProvider
+			.otherwise('/');
+
+		//no hashbangs
+		$locationProvider.html5Mode(true);
+	}
 })();

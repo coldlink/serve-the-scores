@@ -5,8 +5,13 @@
     .controller('MainBoardCtrl', MainBoardCtrl);
 
     function MainBoardCtrl() {
-      let vm = this;
+      let board = this;
 
-      vm.message = 'MAIN BOARD';
+      board.p1name = 'Player 1';
+      board.p2name = 'Player 2';
+      board.p1score = 0;
+      board.p2score = 0;
+      board.eventLeft = 'Hello';
+      board.eventRight = 'World';
     }
 })();
