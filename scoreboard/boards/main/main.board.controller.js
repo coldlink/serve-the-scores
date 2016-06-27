@@ -1,17 +1,21 @@
-(function () {
-  'use strict';
+(function() {
+	'use strict';
 
-  angular.module('StSApp')
-    .controller('MainBoardCtrl', MainBoardCtrl);
+	angular.module('StSApp')
+		.controller('MainBoardCtrl', MainBoardCtrl);
 
-    function MainBoardCtrl() {
-      let board = this;
+	function MainBoardCtrl($http, $socket, $scope) {
+		let board = this;
+    board.main = {};
 
-      board.p1name = 'Player 1';
-      board.p2name = 'Player 2';
-      board.p1score = 0;
-      board.p2score = 0;
-      board.eventLeft = 'Hello';
-      board.eventRight = 'World';
-    }
+    /*get data on state load*/
+    $scope.$on('socket:data', (e, data) => {
+      board.main = data.main;
+    });
+
+    /*update data on score saved*/
+    $socket.on('savescore', (data) => {
+      board.main = data.main;
+    });
+	}
 })();

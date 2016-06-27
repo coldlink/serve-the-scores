@@ -2,7 +2,7 @@
 (function() {
 	'use strict';
 
-	angular.module('StSApp', ['ui.router', 'uiRouterStyles'])
+	angular.module('StSApp', ['ui.router', 'uiRouterStyles', 'btford.socket-io'])
 		.config(config);
 
 	function config($urlRouterProvider, $locationProvider) {

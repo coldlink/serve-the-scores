@@ -9,9 +9,20 @@
 
   //define bindables
   let router = express();
+  let server = require('http').Server(router);
+  let io = require('socket.io')(server);
   let mainWindow = null;
 
-  let data = {}; //holder for saved score data
+  let data = {
+    main: {
+      p1name: 'Player 1',
+      p2name: 'Player 2',
+      p1score: 0,
+      p2score: 1,
+      eventLeft: 'Event Left',
+      eventRight: 'Event Right'
+    }
+  }; //holder for saved score data
 
   //set up electron window
   app.on('window-all-closed', () => app.quit());
@@ -36,6 +47,12 @@
   //route to get current score data
   router.get('/data', (req, res) => res.status(200).json(data));
 
+  //io configuration
+  io.on('connection', function (socket) {
+      console.log('\nuser connected');
+      socket.emit('data', data);
+  });
+
   //listen on port 1337
-  router.listen(1337, () => console.log('Access scoreboard from http://localhost:1337'));
+  server.listen(1337, () => console.log('Access scoreboard from http://localhost:1337'));
 })();
