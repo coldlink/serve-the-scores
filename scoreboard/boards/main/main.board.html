@@ -3,7 +3,7 @@
 <img id="nameScores" src="boards/main/media/name-scores.png" />
 <!-- SET VARIABLES/BINDABLES -->
 <!-- Player 1 Name -->
-<span id="p1name" class="white animated slideInDown">{{board.main.p1name}}</span>
+<span id="p1name" animate-on-change="board.main.p1name" class="white animated slideInDown" remove-on-load remove-on-load-class="slideInDown">{{board.main.p1name}}</span>
 <!-- Player 1 Score -->
 <span id="p1score" class="white animated slideInDown">{{board.main.p1score}}</span>
 <!-- Player 2 Name -->

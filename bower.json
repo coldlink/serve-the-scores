@@ -19,6 +19,7 @@
     "angular-ui-router": "^0.3.1",
     "animate.css": "^3.5.2",
     "angular-ui-router-styles": "^1.1.0",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "angular-animate": "^1.5.7"
   }
 }
