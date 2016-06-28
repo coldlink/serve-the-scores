@@ -10,25 +10,16 @@
 	const express = require('express');
 	const bodyParser = require('body-parser');
 	const path = require('path');
+	const storage = require('electron-json-storage');
 
 	//define bindables
 	let router = express();
 	let server = require('http').Server(router);
 	let io = require('socket.io')(server);
 	let mainWindow = null;
-	let info = {};
 
 	//temp holder for saved score data
-	let data = {
-		main: {
-			p1name: 'Player 1',
-			p2name: 'Player 2',
-			p1score: 0,
-			p2score: 1,
-			eventLeft: 'Event Left',
-			eventRight: 'Event Right'
-		}
-	};
+	let data = {};
 
 	//set up electron window
 	app.on('window-all-closed', () => app.quit());
@@ -54,24 +45,44 @@
 
 	//io configuration
 	io.on('connection', function(socket) {
-		console.log('\nuser connected');
 		socket.emit('data', data);
 	});
 
 	//listen on port 1337
-	server.listen(1337, () => {
-		info.server = '';
-	});
-
+	server.listen(1337);
 
 	/*ipcMain Setup*/
-  //on connection send data
-  ipcMain.on('connect', function (event, arg) {
-    event.sender.send('connect-reply', data);
-  });
+	//on connection send data
+	ipcMain.on('connect', function(event, arg) {
+		storage.get('scoreboard-data', function(err, response) {
+			if (err) {
+				return console.log(err);
+			}
+			if (Object.keys(response).length === 0) {
+				data = {
+					main: {
+						p1name: 'Player 1',
+						p2name: 'Player 2',
+						p1score: 0,
+						p2score: 0,
+						eventLeft: 'Event Left',
+						eventRight: 'Event Right'
+					}
+				}
+			} else {
+				data = response;
+			}
+			event.sender.send('connect-reply', data);
+		});
+	});
 
-  ipcMain.on('save', function (event, arg) {
-    data = arg;
-    io.emit('savescore', data);
-  });
+	ipcMain.on('save', function(event, arg) {
+		data = arg;
+		storage.set('scoreboard-data', data, function(err) {
+			if (err) {
+				return console.log(err);
+			}
+			io.emit('savescore', data);
+		});
+	});
 })();
