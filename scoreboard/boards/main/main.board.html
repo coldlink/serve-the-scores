@@ -1,16 +1,16 @@
 <!-- SET IMAGE/BOARD -->
-<img id="event" src="boards/main/media/event.png" />
-<img id="nameScores" src="boards/main/media/name-scores.png" />
+<img id="event" class="animated slideInUp" src="boards/main/media/event.png" />
+<img id="nameScores" class="animated slideInDown" src="boards/main/media/name-scores.png" />
 <!-- SET VARIABLES/BINDABLES -->
 <!-- Player 1 Name -->
-<span id="p1name" animate-on-change="board.main.p1name" class="white animated slideInDown" remove-on-load remove-on-load-class="slideInDown">{{board.main.p1name}}</span>
+<span id="p1name" animation-out="slideOutUp" animation-in="slideInDown" animate-on-change="old.p1name" class="white animated slideInDown" on-load-animation>{{board.main.p1name}}</span>
 <!-- Player 1 Score -->
-<span id="p1score" class="white animated slideInDown">{{board.main.p1score}}</span>
+<span id="p1score" animation-out="slideOutUp" animation-in="slideInDown" animate-on-change="old.p1score" class="white animated slideInDown" on-load-animation>{{board.main.p1score}}</span>
 <!-- Player 2 Name -->
-<span id="p2name" class="white animated slideInDown">{{board.main.p2name}}</span>
+<span id="p2name" animation-out="slideOutUp" animation-in="slideInDown" animate-on-change="old.p2name" class="white animated slideInDown" on-load-animation>{{board.main.p2name}}</span>
 <!-- Player 2 Score -->
-<span id="p2score" class="white animated slideInDown">{{board.main.p2score}}</span>
+<span id="p2score" animation-out="slideOutUp" animation-in="slideInDown" animate-on-change="old.p2score" class="white animated slideInDown" on-load-animation>{{board.main.p2score}}</span>
 <!-- Event Bottom Left -->
-<span id="eventLeft" class="white animated slideInUp">{{board.main.eventLeft}}</span>
+<span id="eventLeft" animation-out="slideOutDown" animation-in="slideInUp" animate-on-change="old.eventLeft" class="white animated slideInUp" on-load-animation>{{board.main.eventLeft}}</span>
 <!-- Event Bottom Right -->
-<span id="eventRight" class="white animated slideInUp">{{board.main.eventRight}}</span>
+<span id="eventRight" animation-out="slideOutDown" animation-in="slideInUp" animate-on-change="old.eventRight" class="white animated slideInUp" on-load-animation>{{board.main.eventRight}}</span>
