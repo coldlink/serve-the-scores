@@ -12,14 +12,57 @@
 	const path = require('path');
 	const storage = require('electron-json-storage');
 
+	//default config object
+	const defaultConfigData = [{
+		name: 'main',
+		data: [
+			[{
+				key: 'p1name',
+				value: 'Player 1',
+				name: 'Player 1',
+				type: 'text'
+			}, {
+				key: 'p2name',
+				value: 'Player 2',
+				name: 'Player 2',
+				type: 'text'
+			}],
+			[{
+				key: 'p1score',
+				value: 0,
+				name: 'Player 1 Score',
+				type: 'number'
+			}, {
+				key: 'p2score',
+				value: 0,
+				name: 'Player 2 Score',
+				type: 'number'
+			}],
+			[{
+				key: 'eventLeft',
+				value: 'Event Left',
+				name: 'Event Left',
+				type: 'text'
+			}, {
+				key: 'eventRight',
+				value: 'Event Right',
+				name: 'Event Right',
+				type: 'text'
+			}]
+		]
+	}];
+
+
 	//define bindables
 	let router = express();
 	let server = require('http').Server(router);
 	let io = require('socket.io')(server);
 	let mainWindow = null;
 
-	//temp holder for saved score data
-	let data = {};
+	//holder for saved score data
+	let scoreData = {};
+	//holder for saved configuration
+	let configData = [];
 
 	//set up electron window
 	app.on('window-all-closed', () => app.quit());
@@ -45,7 +88,7 @@
 
 	//io configuration
 	io.on('connection', function(socket) {
-		socket.emit('data', data);
+		socket.emit('data', scoreData);
 	});
 
 	//listen on port 1337
@@ -54,35 +97,46 @@
 	/*ipcMain Setup*/
 	//on connection send data
 	ipcMain.on('connect', function(event, arg) {
-		storage.get('scoreboard-data', function(err, response) {
+		storage.get('config-scoreboard', function(err, response) {
 			if (err) {
-				return console.log(err);
+				throw err;
 			}
 			if (Object.keys(response).length === 0) {
-				data = {
-					main: {
-						p1name: 'Player 1',
-						p2name: 'Player 2',
-						p1score: 0,
-						p2score: 0,
-						eventLeft: 'Event Left',
-						eventRight: 'Event Right'
-					}
-				}
+				configData = defaultConfigData;
 			} else {
-				data = response;
+				configData = response;
 			}
-			event.sender.send('connect-reply', data);
+
+			buildScoreData(event);
+			return event.sender.send('connect-reply', configData);
 		});
 	});
 
 	ipcMain.on('save', function(event, arg) {
-		data = arg;
-		storage.set('scoreboard-data', data, function(err) {
+		configData = arg;
+		storage.set('config-scoreboard', configData, function(err) {
 			if (err) {
-				return console.log(err);
+				throw err;
 			}
-			io.emit('savescore', data);
+
+			return buildScoreData(true);
 		});
 	});
+
+	function buildScoreData(emit) {
+		configData.forEach(config => {
+			//initalise board object
+			scoreData[config.name] = {};
+
+			//set key value to send to client
+			config.data.forEach(data => {
+				data.forEach(kv => {
+					scoreData[config.name][kv.key] = kv.value;
+				});
+			});
+		});
+
+		console.log(scoreData);
+		if (emit) io.emit('data', scoreData);
+	}
 })();

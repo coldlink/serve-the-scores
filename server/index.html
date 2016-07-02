@@ -6,25 +6,28 @@
         <title>Serve The Scores - Server</title>
         <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css">
     </head>
-    <body ng-app="StSServerApp" ng-controller="MainCtrl as main" ng-cloak>
+    <body ng-app="StSServerApp" ng-controller="MainCtrl as mc" ng-cloak>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>
                     <span>Stream the Scores</span>
                 </h2>
                 <span flex></span>
-                <md-button class="md-raised" aria-label="Save" ng-click="main.save()">
+                <md-button class="md-raised" aria-label="Save" ng-click="mc.save()">
                     Save
                 </md-button>
             </div>
         </md-toolbar>
-        <md-content class="md-padding" layout="column">
+        <md-content class="md-padding">
             <md-tabs md-dynamic-height md-autoselect>
-                <md-tab ng-repeat="tab in main.tabs" label="{{tab.title}}">
-                    <div ng-repeat="(key, value) in tab.data">
-                        <md-input-container>
-                            <label>{{key}}</label>
-                            <input ng-model="tab.data[key]">
+                <md-tab ng-repeat="tab in mc.configData" label="{{tab.name}}">
+                    <div ng-repeat="row in tab.data" layout="row">
+                        <md-input-container ng-repeat="kv in row">
+                            <label>{{kv.name}}
+                                <br>
+                                <small>{{kv.key}}</small>
+                            </label>
+                            <input type="{{kv.type}}" ng-model="kv.value" value="{{kv.value}}">
                         </md-input-container>
                     </div>
                 </md-tab>

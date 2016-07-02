@@ -12,7 +12,7 @@
 		/*get data on state load*/
 		$scope.$on('socket:data', (e, data) => {
 			//holds old board data
-			$scope.old = data.main;
+			board.old = data.main;
 			//update new board data
 			board.main = data.main;
 
@@ -24,7 +24,7 @@
 
 		/*update data on score saved*/
 		$socket.on('savescore', (data) => {
-			$scope.old = data.main;
+			board.old = data.main;
 			$timeout(() => {
 				board.main = data.main;
 			}, ANIMATION_TIMEOUT);
