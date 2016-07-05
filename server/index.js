@@ -107,7 +107,7 @@
 				configData = response;
 			}
 
-			buildScoreData(event);
+			buildScoreData();
 			return event.sender.send('connect-reply', configData);
 		});
 	});
@@ -135,8 +135,6 @@
 				});
 			});
 		});
-
-		console.log(scoreData);
 		if (emit) io.emit('data', scoreData);
 	}
 })();

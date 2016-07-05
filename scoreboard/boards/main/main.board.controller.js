@@ -9,25 +9,19 @@
 		$scope.loaded = 0;
 		board.main = {};
 
-		/*get data on state load*/
+		/*get data on state load and save*/
 		$scope.$on('socket:data', (e, data) => {
 			//holds old board data
 			board.old = data.main;
 			//update new board data
-			board.main = data.main;
+			$timeout(() => board.main = data.main, $scope.loaded ? ANIMATION_TIMEOUT : 0);
 
 			/*Set loaded after inital load animation finished*/
-			$timeout(() => {
-				$scope.loaded = 1;
-			}, ANIMATION_TIMEOUT);
-		});
-
-		/*update data on score saved*/
-		$socket.on('savescore', (data) => {
-			board.old = data.main;
-			$timeout(() => {
-				board.main = data.main;
-			}, ANIMATION_TIMEOUT);
+			if (!$scope.loaded) {
+				$timeout(() => {
+					$scope.loaded = 1;
+				}, ANIMATION_TIMEOUT);	
+			}
 		});
 	}
 })();
