@@ -48,6 +48,21 @@
 				value: 'Event Right',
 				name: 'Event Right',
 				type: 'text'
+			}],
+			[{
+				key: 'buttonSwap',
+				value: 'Swap Players',
+				name: '',
+				type: 'button',
+				method: 'swap', //function you want to call
+				params: 'p1name,p2name,p1score,p2score'
+			}, {
+				key: 'buttonReset',
+				value: 'Reset Scores',
+				name: '',
+				type: 'button',
+				method: 'reset',
+				params: 'p1score,p2score'
 			}]
 		]
 	}];
@@ -68,7 +83,7 @@
 	app.on('window-all-closed', () => app.quit());
 	app.on('ready', () => {
 		mainWindow = new BrowserWindow({
-			width: 270,
+			width: 300,
 			height: 480
 		});
 		mainWindow.loadURL('file://' + __dirname + '/index.html');
@@ -104,6 +119,7 @@
 			if (Object.keys(response).length === 0) {
 				configData = defaultConfigData;
 			} else {
+				// configData = defaultConfigData;
 				configData = response;
 			}
 

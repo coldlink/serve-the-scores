@@ -18,18 +18,30 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-content class="md-padding">
+        <md-content>
             <md-tabs md-dynamic-height md-autoselect>
                 <md-tab ng-repeat="tab in mc.configData" label="{{tab.name}}">
-                    <div ng-repeat="row in tab.data" layout="row">
-                        <md-input-container ng-repeat="kv in row">
-                            <label>{{kv.name}}
-                                <br>
-                                <small>{{kv.key}}</small>
-                            </label>
-                            <input type="{{kv.type}}" ng-model="kv.value" value="{{kv.value}}">
-                        </md-input-container>
-                    </div>
+                    <md-content>
+                        <!-- Margin Top of Tab -->
+                        <p style="margin: 0">
+                            &nbsp;
+                        </p>
+                        <!-- Tab Content -->
+                        <div ng-repeat="row in tab.data" layout="row">
+                            <span ng-repeat="kv in row">
+                                <!-- Not a button input -->
+                                <md-input-container ng-if="kv.type !== 'button'">
+                                    <label>{{kv.name}}
+                                        <br>
+                                        <small>{{kv.key}}</small>
+                                    </label>
+                                    <input type="{{kv.type}}" ng-model="kv.value" value="{{kv.value}}">
+                                </md-input-container>
+                                <!-- Button input -->
+                                <md-button class="md-raised" ng-if="kv.type === 'button'" ng-click="mc.callMethod(kv.method, kv.params, tab.name)">{{kv.value}}</md-button>
+                            </span>
+                        </div>
+                    </md-content>
                 </md-tab>
             </md-tabs>
         </md-content>
