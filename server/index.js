@@ -65,6 +65,32 @@
 				params: 'p1score,p2score'
 			}]
 		]
+	}, {
+		name: 'commentatorCamera',
+		data: [
+			[{
+				key: 'cName1',
+				value: 'Commentator One',
+				name: 'Commentator One',
+				type: 'text'
+			}, {
+				key: 'cName2',
+				value: 'Commentator Two',
+				name: 'Commentator Two',
+				type: 'text'
+			}],
+			[{
+				key: 'cTwit1',
+				value: '@twitter',
+				name: 'Twitter Commentator One',
+				type: 'text'
+			}, {
+				key: 'cTwit2',
+				value: '@twitter',
+				name: 'Twitter Commentator Two',
+				type: 'text'
+			}]
+		]
 	}];
 
 
