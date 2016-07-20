@@ -12,7 +12,7 @@
 		let vm = this;
 		vm.configData;
 		vm.callMethod = callMethod;
-    vm.save = save;
+		vm.save = save;
 
 		/*Senders*/
 		ipcRenderer.send('connect');
@@ -28,26 +28,30 @@
 
 			switch (method) {
 				case 'swap':
+					if (!board) return;
 					return swap(params, board);
 				case 'reset':
+					if (!board) return;
 					return reset(params, board);
+				case 'send':
+					return reset(params);
 				default:
 					return;
 			}
 		}
 
 		function reset(params, board) {
-      let boardIndex = _.findIndex(vm.configData, {
+			let boardIndex = _.findIndex(vm.configData, {
 				'name': board
 			});
 			params = params.split(',');
-      params.forEach(key => {
-        vm.configData[boardIndex].data.forEach((data, i) => {
-          if (_.findIndex(data, o => o.key === key) !== -1) {
-            vm.configData[boardIndex].data[i][_.findIndex(data, o => o.key === key)].value = 0;
-          }
-        });
-      });
+			params.forEach(key => {
+				vm.configData[boardIndex].data.forEach((data, i) => {
+					if (_.findIndex(data, o => o.key === key) !== -1) {
+						vm.configData[boardIndex].data[i][_.findIndex(data, o => o.key === key)].value = 0;
+					}
+				});
+			});
 		}
 
 		function save() {
@@ -55,9 +59,9 @@
 		}
 
 		function swap(params, board) {
-      let boardIndex = _.findIndex(vm.configData, {
-        'name': board
-      });
+			let boardIndex = _.findIndex(vm.configData, {
+				'name': board
+			});
 			params = _.chunk(params.split(','), 2);
 			params.forEach(swapKeys => {
 				let dataKeyIndex = [];
@@ -65,7 +69,7 @@
 					vm.configData[boardIndex].data.forEach((data, i) => {
 						if (_.findIndex(data, o => o.key === key) !== -1) {
 							dataKeyIndex.push({
-                data: i,
+								data: i,
 								value: _.findIndex(data, o => o.key === key)
 							});
 						}
