@@ -20,6 +20,7 @@
 		/*Listeners*/
 		ipcRenderer.on('connect-reply', function(e, arg) {
 			vm.configData = arg;
+			vm.configDataModel = angular.toJson(arg, true);
 		});
 
 		/*Methods*/
@@ -55,7 +56,7 @@
 		}
 
 		function save() {
-			ipcRenderer.send('save', vm.configData);
+			ipcRenderer.send('save', angular.toJson(vm.configData));
 		}
 
 		function swap(params, board) {

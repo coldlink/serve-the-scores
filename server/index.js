@@ -89,6 +89,14 @@
 				value: '@twitter',
 				name: 'Twitter Commentator Two',
 				type: 'text'
+			}],
+			[{
+				key: 'buttonSwap',
+				value: 'Swap',
+				name: '',
+				type: 'button',
+				method: 'swap', //function you want to call
+				params: 'cName1,cName2,cTwit1,cTwit2'
 			}]
 		]
 	}];
@@ -155,7 +163,7 @@
 	});
 
 	ipcMain.on('save', function(event, arg) {
-		configData = arg;
+		configData = JSON.parse(arg);
 		storage.set('config-scoreboard', configData, function(err) {
 			if (err) {
 				throw err;
